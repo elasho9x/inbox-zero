@@ -19,6 +19,17 @@ export function Logo({ className }: LogoProps) {
     );
   }
 
+  if (BRAND_NAME !== "Inbox Zero") {
+    return (
+      <svg viewBox="0 0 209 25" role="img" aria-label={`${BRAND_NAME} logo`} className={className}>
+        <title>{BRAND_NAME}</title>
+        <text x="0" y="20" fontSize="24" fontWeight="750" fill="currentColor">
+          {BRAND_NAME}
+        </text>
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 209 25" fill="none" className={className}>
       <title>{BRAND_NAME}</title>
