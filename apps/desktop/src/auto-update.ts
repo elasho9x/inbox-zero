@@ -83,7 +83,7 @@ export async function checkForDesktopUpdatesManually(
     await dialog.showMessageBox({
       type: "info",
       message: "Updates are unavailable in development builds",
-      detail: "Install a released version of Inbox Zero to receive updates.",
+      detail: "Install a released version of VINBOX to receive updates.",
     });
     return false;
   }
@@ -109,7 +109,7 @@ export async function checkForDesktopUpdatesManually(
       await dialog.showMessageBox({
         type: "info",
         message: "You're up to date",
-        detail: `Inbox Zero ${app.getVersion()} is the latest version.`,
+        detail: `VINBOX ${app.getVersion()} is the latest version.`,
       });
       return true;
     }
@@ -124,9 +124,9 @@ export async function checkForDesktopUpdatesManually(
 
     await dialog.showMessageBox({
       type: "info",
-      message: `Downloading Inbox Zero ${result.updateInfo.version}`,
+      message: `Downloading VINBOX ${result.updateInfo.version}`,
       detail:
-        "You can keep using Inbox Zero. Restart to Update will appear in the app menu when it's ready.",
+        "You can keep using VINBOX. Restart to Update will appear in the app menu when it's ready.",
     });
     return true;
   } catch (error) {
