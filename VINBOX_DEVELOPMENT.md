@@ -50,3 +50,46 @@ A separate proof-of-concept ZIP was created in the ChatGPT conversation. It is *
 
 ## Definition of done
 VINBOX starts from its own deployable build; branding is consistent; Gmail/Outlook remain working; a custom IMAP account can be connected via Nylas, read, searched, replied to, and managed; unified inbox handles multiple providers; tests cover permissions, errors, and sending; credentials never appear in UI or logs; operator documentation is complete.
+
+## Real desktop and mobile applications (required)
+
+This requirement is for installable, functional apps, **not promotional images or mockups**. The same VINBOX backend, account permissions, and provider integrations must power web, desktop, iOS, and Android.
+
+### Desktop — reuse the existing Electron app in `apps/desktop`
+- Rename application name, About menus, executable/installers, app ID, deep-link protocol (`vinbox://`), native notifications, desktop diagnostics and update messages, tray/Dock label, stored app session partition, and Windows App User Model ID to VINBOX.
+- Replace `apps/desktop/build/icon.png` with actual VINBOX icon artwork from a user-approved asset. Make generated .icns/.ico/PWA icons as appropriate and maintain accessible contrast.
+- Update server's `DESKTOP_AUTH_ORIGIN=vinbox://`, desktop `VINBOX_APP_URL` (or compatible legacy env), custom-scheme OAuth callbacks, state/PKCE verification, and allowlisted origins.
+- Ship independently installable signed macOS DMG/ZIP (Intel and Apple Silicon) and Windows installers (x64/ARM64 where toolchains support them). Linux is optional after Windows/macOS.
+- Switch release publisher, update feed, CI workflows, artifact filenames, release notes and download links to VINBOX-owned resources. Never allow VINBOX clients to auto-install upstream Inbox Zero releases.
+- Preserve multiple windows, unread badge, privacy-safe native notifications, offline local cache, app restart state, and native desktop keyboard shortcuts.
+- Before packaging, run Electron typecheck, tests and actual install/login/uninstall smoke tests on macOS and Windows. Sign/notarize with credentials provided privately by the administrator.
+
+### Android — VINBOX Android application
+- The upstream README mentions an older React Native Android app, but its source is **not in this repository**. Do not pretend a rebrandable Android project exists here.
+- First verify whether a separately licensed or public upstream Android source repository exists and can be legally reused. Otherwise implement a VINBOX-branded Android app under `apps/mobile` (React Native/Expo, or another practical solution validated against the backend).
+- Match full core UX: account switcher, unified inbox, read/search, threads, reply/forward, drafts, attachments, push notifications, AI summaries/drafts, user settings.
+- Use VINBOX Android application ID (proposed `com.vnetindia.vinbox`; verify available package ID), launcher icons, splash, lock screen notification privacy, secure local token storage, deep/app links, and responsive layouts.
+- Implement OAuth via system browser and PKCE, not embedded browser password collection. Ensure logout revokes the session and clears local email data. Allow administrator configuration of the private VINBOX server URL without exposing credentials.
+- Produce installable APK for internal distribution and signed AAB when Play Store distribution is later approved.
+
+### iOS/iPadOS — build VINBOX app from permitted source
+- Upstream README explicitly says its Swift iOS app is **not open source**. A build with its branding cannot be produced just by forking this repo. Do not use the existing App Store app as a VINBOX-branded app or copy unavailable source.
+- Build a separate VINBOX iOS app using a suitable supported framework (prefer sharing Android code where practical) and integrate the backend's existing mobile authentication endpoints.
+- Use VINBOX app name, bundle identifier (proposed `com.vnetindia.vinbox`), icons/splash, secure Keychain storage, universal links/custom scheme registration, privacy-safe notifications, account handling, accessibility, and native navigation behavior.
+- Prepare signed iOS IPA and TestFlight/internal distribution when Apple signing and provisioning credentials are supplied privately. Require Apple Developer account and suitable provisioning.
+- iPhone and iPad should get layouts appropriate to screen size, rather than a desktop page squeezed into a webview.
+
+### Shared app API and credentials
+- Respect the upstream `/api/mobile-auth/*` PKCE implementation; adapt server callback origins for VINBOX and test both desktop and mobile flows end-to-end.
+- All mailbox grants stay server-side, including Nylas. The mobile and desktop apps call authenticated VINBOX APIs, never store Nylas API keys.
+- Do not assume the web app's internal server actions can be safely called by native apps without a proper authenticated API surface. Build only the required, access-controlled endpoints.
+- Keep AI destructive actions and sends approval-gated by default. Synchronize account state across platforms while protecting sensitive local caches.
+- Ensure release/signing settings don't publish to third-party or upstream update endpoints.
+- Maintain and document platform-specific build pipelines, test fixtures, emulator tests, store/privacy disclosures where applicable, and internal distribution instructions.
+
+### Done when
+- VINBOX Web works on mobile/desktop browsers.
+- VINBOX Desktop for macOS and Windows actually installs, logs into the VINBOX server, reads and sends mail, and updates from a VINBOX-controlled feed.
+- VINBOX Android APK installs, securely signs in, syncs mail, and handles notifications.
+- VINBOX iOS build launches on a physical iPhone, securely signs in, syncs mail, and handles notifications.
+- Each app displays VINBOX branding and uses the same connected mailbox data without requiring separate Nylas grants.
