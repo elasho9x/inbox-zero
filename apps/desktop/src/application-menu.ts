@@ -6,7 +6,7 @@ import {
   type WebContents,
 } from "electron";
 
-const PRODUCT_NAME = "Inbox Zero";
+const PRODUCT_NAME = "VINBOX";
 
 export function configureDesktopApplicationMenu({
   checkForUpdates,
