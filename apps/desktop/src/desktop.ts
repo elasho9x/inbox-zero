@@ -1,9 +1,9 @@
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-export const DESKTOP_PROTOCOL = "inboxzero";
+export const DESKTOP_PROTOCOL = "vinbox";
 export const DESKTOP_AUTH_CALLBACK_PATH = "/auth-callback";
-export const DEFAULT_APP_URL = "https://www.getinboxzero.com";
+export const DEFAULT_APP_URL = "http://localhost:3000";
 export const DESKTOP_AUTH_PROVIDERS = ["apple", "google", "microsoft"] as const;
 
 export type DesktopAuthProvider = (typeof DESKTOP_AUTH_PROVIDERS)[number];
@@ -13,11 +13,11 @@ export type DesktopAuthCallback =
   | { ok: false; error: string };
 
 export function getDesktopAppOrigin(
-  appUrl = process.env.INBOX_ZERO_APP_URL ?? DEFAULT_APP_URL,
+  appUrl = process.env.VINBOX_APP_URL ?? process.env.INBOX_ZERO_APP_URL ?? DEFAULT_APP_URL,
 ): string {
   const parsed = new URL(appUrl);
   if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
-    throw new Error("INBOX_ZERO_APP_URL must be an http(s) URL");
+    throw new Error("VINBOX_APP_URL must be an http(s) URL");
   }
   return parsed.origin;
 }
