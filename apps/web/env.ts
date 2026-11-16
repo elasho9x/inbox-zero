@@ -387,7 +387,7 @@ const parsedEnv = createEnv({
       .trim()
       .min(1)
       .optional()
-      .default("inboxzero://"),
+      .default("vinbox://"),
     AUTO_JOIN_ORGANIZATION_ENABLED: booleanString.optional().default(false),
     AUTO_ENABLE_ORG_ANALYTICS: booleanString.optional().default(false),
     // When false, skip writing new AI-source sender-pattern caches. Existing
