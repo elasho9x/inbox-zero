@@ -14,6 +14,7 @@ import Image from "next/image";
 import type { MessageDescriptor } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 
 type Award = {
   title: MessageDescriptor;
@@ -67,7 +68,7 @@ export function Awards() {
         <Trans>
           Your data stays private — no AI training, no funny business. We’re
           fully certified for top-tier security, and you can even self-host
-          Inbox Zero if you want total control.
+          {BRAND_NAME} if you want total control.
         </Trans>
       </SectionSubtitle>
       <SectionContent

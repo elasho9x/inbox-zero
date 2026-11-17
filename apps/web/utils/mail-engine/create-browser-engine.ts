@@ -18,7 +18,7 @@ import { MailEngineStartupError } from "./startup-error";
 export type BrowserMailEngine = MailEngine & {
   ensureAccount(input: {
     accountId: string;
-    provider: "google" | "microsoft";
+    provider: "google" | "microsoft" | "nylas";
     generation?: string;
   }): Promise<void>;
 };

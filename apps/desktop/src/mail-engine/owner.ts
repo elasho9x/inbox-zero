@@ -204,11 +204,11 @@ async function handleOwnerIpc(
 ) {
   const parsed = parseMailIpcRequest(payload);
   if (parsed.success && parsed.data.method === "requestSync") {
-    const provider = parsed.data.payload.provider ?? "google";
+    const provider = parsed.data.payload.provider;
     for (const accountId of parsed.data.payload.accountIds) {
       await owned.store.ensureAccount({
         accountId,
-        provider,
+        provider: provider ?? "google",
         generation: accountId,
       });
     }

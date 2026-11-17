@@ -88,6 +88,11 @@ model User {
   surveySource       String? // single choice: how user heard about Inbox Zero
   surveyImprovements String? // open text: what user wants to improve
 
+  // VINBOX: Role-based access control
+  role        Role         @default(TEAM_MEMBER) // ADMIN | TEAM_MEMBER
+  // VINBOX: Team access control
+  teamMembers TeamMember[]
+
   // settings
   mcpServerEnabled     Boolean  @default(false)
   mcpTokenVersion      Int      @default(0)
@@ -130,6 +135,11 @@ model User {
   scimUsers              ScimUser[]
   scimProjectionGrants   ScimProjectionGrant[]
   scimIdentityLinks      ScimIdentityLink[]
+}
+
+enum Role {
+  ADMIN
+  TEAM_MEMBER
 }
 
 enum SignupIntent {
@@ -334,12 +344,46 @@ model Organization {
   metadata      Json?
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
+  teams         Team[]
   members       Member[]
   SsoProvider   SsoProvider?
   sessions      Session[]
   invitations   Invitation[]
   rules         OrganizationRule[]
   conversations Conversation[]
+}
+
+model Team {
+  id             String       @id @default(cuid())
+  name           String
+  slug           String
+  description    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  members        TeamMember[]
+
+  @@unique([organizationId, slug])
+}
+
+model TeamMember {
+  id            String             @id @default(cuid())
+  userId        String
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId        String
+  team          Team               @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  role          TeamRole           @default(MEMBER)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  @@unique([teamId, userId])
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
 
 // Org-managed rule, materialized into a normal member Rule (+ Action) copy per

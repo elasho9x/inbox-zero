@@ -1,22 +1,22 @@
 # Desktop app
 
-Electron shell for the hosted Inbox Zero web app.
+Electron shell for the hosted VINBOX web app.
 
 ## Run
 
 Against production:
 
 ```sh
-pnpm --filter @inboxzero/desktop dev
+pnpm --filter @vinbox/desktop dev
 ```
 
 Against a local web app:
 
 ```sh
-INBOX_ZERO_APP_URL=http://localhost:3000 pnpm --filter @inboxzero/desktop dev
+INBOX_ZERO_APP_URL=http://localhost:3000 pnpm --filter @vinbox/desktop dev
 ```
 
-Sign-in uses the system browser and returns through `inboxzero://`. The web app's `DESKTOP_AUTH_ORIGIN` defaults to this scheme.
+Sign-in uses the system browser and returns through `vinbox://`. The web app's `DESKTOP_AUTH_ORIGIN` defaults to this scheme.
 
 ## Multiple windows
 
@@ -34,7 +34,7 @@ The app must remain running; hiding the Mac window is supported, fully quitting 
 
 ## Record diagnostics
 
-Help → Record Diagnostics… captures 30 seconds of performance data while the user reproduces a slowdown (clicking the progress notification stops early). It writes an `Inbox-Zero-Diagnostics-<timestamp>` folder to Downloads and reveals it:
+Help → Record Diagnostics… captures 30 seconds of performance data while the user reproduces a slowdown (clicking the progress notification stops early). It writes a `VINBOX-Diagnostics-<timestamp>` folder to Downloads and reveals it:
 
 - `trace.json.gz`: a Chromium trace of the main and renderer processes (timeline, task, IPC, and sampled JS stack categories). Open it in the DevTools Performance panel or [Perfetto](https://ui.perfetto.dev). Paint, layer, and screenshot categories are excluded, and URL query strings are stripped.
 - `diagnostics.json`: app, Electron, and OS versions, per-process CPU and memory, system memory, mail database file sizes, and local mail engine sync and queue counts. It contains no messages, subjects, or addresses.
@@ -44,8 +44,8 @@ When Sentry is configured, the app offers to send both files as attachments on a
 ## Package
 
 ```sh
-pnpm --filter @inboxzero/desktop dist:mac
-pnpm --filter @inboxzero/desktop dist:win
+pnpm --filter @vinbox/desktop dist:mac
+pnpm --filter @vinbox/desktop dist:win
 ```
 
 Installers land in `apps/desktop/release/`. macOS packaging requires a Developer ID certificate and notarization credentials.

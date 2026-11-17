@@ -57,7 +57,10 @@ async function getEmailAccountsToWatch(userIds: string[] | null) {
     where: {
       ...(userIds ? { userId: { in: userIds } } : {}),
       ...getPremiumUserFilter(),
-      account: { disconnectedAt: null },
+      account: {
+        disconnectedAt: null,
+        provider: { in: ["google", "microsoft"] },
+      },
     },
     select: {
       id: true,
@@ -366,6 +369,7 @@ export async function stopWatchingEmailAccount({
   subscriptionId: string | null;
   logger: Logger;
 }) {
+  if (provider === "nylas") return;
   let emailProvider: EmailProvider;
   try {
     emailProvider = await createEmailProvider({

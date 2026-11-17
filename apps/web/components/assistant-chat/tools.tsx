@@ -278,7 +278,7 @@ export function ManageInboxResult({
 }) {
   const { t, i18n } = useLingui();
   const { provider, userEmail } = useAccount();
-  const providerName = provider === "microsoft" ? "Outlook" : "Gmail";
+  const providerName = getProviderName(provider);
   const outputAction = getOutputField<string>(output, "action");
   const action = parseManageInboxAction(input?.action || outputAction);
   const successCount = getOutputField<number>(output, "successCount");
@@ -415,7 +415,7 @@ export function ManageInboxResult({
 export function ManageSenderCategoryResult({ output }: { output: unknown }) {
   const { t } = useLingui();
   const { provider, userEmail } = useAccount();
-  const providerName = provider === "microsoft" ? "Outlook" : "Gmail";
+  const providerName = getProviderName(provider);
   const category = getOutputField<{ id: string | null; name: string }>(
     output,
     "category",
@@ -512,7 +512,7 @@ type EmailConfirmationResult = {
 export function ReadEmailResult({ output }: { output: unknown }) {
   const { t, i18n } = useLingui();
   const { provider, userEmail } = useAccount();
-  const providerName = provider === "microsoft" ? "Outlook" : "Gmail";
+  const providerName = getProviderName(provider);
   const subject = getOutputField<string>(output, "subject");
   const from = getOutputField<string>(output, "from");
   const to = getOutputField<string>(output, "to");
@@ -716,7 +716,7 @@ function EmailActionResult({
   });
 
   const recipientInitial = recipient ? recipient.charAt(0).toUpperCase() : "?";
-  const providerName = provider === "microsoft" ? "Outlook" : "Gmail";
+  const providerName = getProviderName(provider);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(editedBody || body || "").catch(() => {});
@@ -1921,6 +1921,12 @@ export function PendingDeleteRuleToolCard({
       )}
     </Card>
   );
+}
+
+function getProviderName(provider: string) {
+  if (provider === "microsoft") return "Outlook";
+  if (provider === "nylas") return "IMAP";
+  return "Gmail";
 }
 
 export function PendingDeleteRulePreviewCard({

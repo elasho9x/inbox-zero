@@ -26,7 +26,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: BRAND_NAME,
     short_name: BRAND_NAME,
-    icons: [...customIcon, ...defaultIcons],
+    icons: customIcon.length ? customIcon : defaultIcons,
     theme_color: "#FFFFFF",
     background_color: "#FFFFFF",
     start_url: "/",

@@ -1,0 +1,54 @@
+name: vinbox
+
+# Apply after docker-compose.yml. Keep the upstream service definitions, but
+# build and run this fork's image for both the web process and the worker.
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in the Compose environment}
+
+  redis:
+    volumes: !override
+      - vinbox-redis-data:/data
+
+  serverless-redis-http:
+    environment:
+      SRH_TOKEN: ${REDIS_HTTP_TOKEN:?Set REDIS_HTTP_TOKEN in the Compose environment}
+
+  web:
+    image: vinbox:local
+    pull_policy: never
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+      args:
+        # Must be a real URL: app/layout.tsx resolves absolute URLs during
+        # prerendering, so the bare *_PLACEHOLDER token fails the build.
+        NEXT_PUBLIC_BASE_URL: ${NEXT_PUBLIC_BASE_URL:?Set NEXT_PUBLIC_BASE_URL}
+        NEXT_PUBLIC_BRAND_NAME: VINBOX
+        NEXT_PUBLIC_BRAND_ICON_URL: /vinbox-icon.png
+        NEXT_PUBLIC_NYLAS_ENABLED: ${NEXT_PUBLIC_NYLAS_ENABLED:-false}
+        # Small self-hosted builders: keep the V8 heap near the box's RAM so
+        # the compile does not thrash swap.
+        NODE_HEAP_MB: ${NODE_HEAP_MB:-4096}
+        # Keep the build-time placeholder so start.sh can substitute the runtime
+        # value (next inlines NEXT_PUBLIC_* at build time).
+        NEXT_PUBLIC_BYPASS_PREMIUM_CHECKS: NEXT_PUBLIC_BYPASS_PREMIUM_CHECKS_PLACEHOLDER
+    ports: !override
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    environment:
+      NEXT_PUBLIC_BRAND_NAME: VINBOX
+      NEXT_PUBLIC_BRAND_ICON_URL: /vinbox-icon.png
+      NEXT_PUBLIC_BYPASS_PREMIUM_CHECKS: ${NEXT_PUBLIC_BYPASS_PREMIUM_CHECKS:-false}
+      AUTH_REQUIRE_ALLOWLIST: "true"
+      AUTOMATION_SEND_ENABLED: "false"
+
+  worker:
+    image: vinbox:local
+    pull_policy: never
+    environment:
+      AUTH_REQUIRE_ALLOWLIST: "true"
+      AUTOMATION_SEND_ENABLED: "false"
+
+volumes:
+  vinbox-redis-data:

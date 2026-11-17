@@ -31,6 +31,7 @@ import { usePremium } from "@/hooks/usePremium";
 import { hasActiveAppleSubscription } from "@/utils/premium";
 import { useAccounts } from "@/hooks/useAccounts";
 import { LoadingContent } from "@/components/LoadingContent";
+import { BRAND_NAME } from "@/utils/branding";
 
 export function DeleteSection() {
   const { i18n, t } = useLingui();
@@ -113,7 +114,7 @@ export function DeleteSection() {
         </ItemTitle>
         <ItemDescription>
           <Trans>
-            Removes your Inbox Zero data. Your emails aren't affected.
+            Removes your {BRAND_NAME} data. Your emails aren't affected.
           </Trans>
         </ItemDescription>
       </ItemContent>
@@ -129,7 +130,7 @@ export function DeleteSection() {
               <AlertDialogTitle>
                 {shouldBlockDeletion
                   ? t`Cancel subscription first`
-                  : t`Delete your Inbox Zero account?`}
+                  : t`Delete your {BRAND_NAME} account?`}
               </AlertDialogTitle>
               <AlertDialogDescription asChild>
                 <div>
@@ -177,7 +178,7 @@ export function DeleteSection() {
                       >
                         <p>
                           <Trans>
-                            This permanently deletes your Inbox Zero data and
+                            This permanently deletes your {BRAND_NAME} data and
                             disconnects {connectedEmailList}. Your emails aren't
                             affected.
                           </Trans>

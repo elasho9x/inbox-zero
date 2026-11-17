@@ -1,0 +1,20 @@
+# Public HTTPS entry point for the VINBOX demo deployment.
+# Caddy obtains a Let's Encrypt certificate for the VINBOX hostname.
+# The DNS record is proxied by Cloudflare; ACME HTTP-01 is forwarded to the origin.
+# No ACME contact email: Let's Encrypt rejects placeholder/TLD-less addresses,
+# and an empty contact is allowed.
+vinbox.serverdnsnet.com {
+	encode zstd gzip
+
+	# The web container also serves /api/*, /api/auth/* and the Nylas webhook.
+	reverse_proxy web:3000 {
+		header_up X-Forwarded-Proto {scheme}
+		header_up Host {host}
+	}
+
+	header {
+		X-Frame-Options SAMEORIGIN
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+}

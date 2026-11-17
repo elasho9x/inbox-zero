@@ -10,6 +10,7 @@ import { MutedText } from "@/components/Typography";
 import { getAccountLinkingUrl } from "@/utils/account-linking";
 import { isGoogleProvider } from "@/utils/email/provider-types";
 import { redirectToSafeUrl } from "@/utils/redirect";
+import { env } from "@/env";
 
 export function AddAccount({ helperText }: { helperText: ReactNode }) {
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
@@ -42,7 +43,7 @@ export function AddAccount({ helperText }: { helperText: ReactNode }) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-3 min-h-[90px]">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         <Button
           variant="outline"
           className="w-full"
@@ -79,6 +80,16 @@ export function AddAccount({ helperText }: { helperText: ReactNode }) {
             <Trans>Add Microsoft</Trans>
           </span>
         </Button>
+        {env.NEXT_PUBLIC_NYLAS_ENABLED && (
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => window.location.assign("/api/nylas/connect")}
+            disabled={isLoadingGoogle || isLoadingMicrosoft}
+          >
+            <Trans>Add custom IMAP</Trans>
+          </Button>
+        )}
       </div>
 
       <MutedText>{helperText}</MutedText>

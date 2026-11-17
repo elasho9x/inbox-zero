@@ -14963,3 +14963,7 @@ msgstr "내 말투"
 #: app/(app)/[emailAccountId]/calendars/CreateBookingLinkDialog.tsx
 msgid "your-name"
 msgstr "your-name"
+#: app/(app)/accounts/AddAccount.tsx
+msgid "Add custom IMAP"
+msgstr "사용자 지정 IMAP 추가"
+

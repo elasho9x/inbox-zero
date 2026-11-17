@@ -3,7 +3,10 @@ import { env } from "@/env";
 import { isIndexingAllowed } from "@/utils/indexing";
 
 export default function robots(): MetadataRoute.Robots {
-  if (!isIndexingAllowed(env.NEXT_PUBLIC_BASE_URL)) {
+  if (
+    env.NEXT_PUBLIC_BRAND_NAME === "VINBOX" ||
+    !isIndexingAllowed(env.NEXT_PUBLIC_BASE_URL)
+  ) {
     return {
       rules: {
         userAgent: "*",

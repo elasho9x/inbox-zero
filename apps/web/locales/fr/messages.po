@@ -14963,3 +14963,7 @@ msgstr "Ta voix"
 #: app/(app)/[emailAccountId]/calendars/CreateBookingLinkDialog.tsx
 msgid "your-name"
 msgstr "ton-nom"
+#: app/(app)/accounts/AddAccount.tsx
+msgid "Add custom IMAP"
+msgstr "Ajouter un compte IMAP personnalisé"
+

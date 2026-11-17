@@ -1,6 +1,7 @@
 "use client";
 
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 import Link from "next/link";
 import { EarlyAccessFeatures } from "@/app/(app)/early-access/EarlyAccessFeatures";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ export default function RequestAccessPage() {
               <Trans>Mail</Trans>
             </CardTitle>
             <CardDescription>
-              <Trans>Open your inbox in the Inbox Zero mail client.</Trans>
+              <Trans>Open your inbox in the {BRAND_NAME} mail client.</Trans>
             </CardDescription>
           </CardHeader>
           <CardContent>

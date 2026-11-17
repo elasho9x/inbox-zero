@@ -26,6 +26,7 @@ const { mockEnv, mockIsIntegrationActionEnabledForUserId } = vi.hoisted(() => ({
     deleteEmailActionEnabled: true,
     autoDraftDisabled: false,
     emailSendEnabled: true,
+    automationSendEnabled: true,
   },
   mockIsIntegrationActionEnabledForUserId: vi.fn().mockResolvedValue(true),
 }));
@@ -40,6 +41,9 @@ vi.mock("@/env", () => ({
     },
     get NEXT_PUBLIC_EMAIL_SEND_ENABLED() {
       return mockEnv.emailSendEnabled;
+    },
+    get AUTOMATION_SEND_ENABLED() {
+      return mockEnv.automationSendEnabled;
     },
   },
 }));
@@ -115,6 +119,7 @@ describe("runActionFunction", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    mockEnv.automationSendEnabled = true;
     vi.mocked(prisma.executedAction.update).mockResolvedValue({});
     vi.mocked(getMessagingRuleNotificationResult).mockResolvedValue({
       delivered: true,
@@ -661,6 +666,34 @@ describe("runActionFunction", () => {
       }),
     );
     expect(result).toEqual({ sentMessageIds: ["sent-msg1"] });
+  });
+
+  it("blocks automatic sending until the administrator opts in", async () => {
+    mockEnv.automationSendEnabled = false;
+    const client = createMockEmailProvider();
+
+    await expect(
+      runActionFunction({
+        client,
+        email,
+        action: {
+          id: "action-1",
+          type: ActionType.SEND_EMAIL,
+          to: "recipient@example.com",
+          subject: "Hello",
+          content: "Hello",
+        },
+        emailAccount,
+        executedRule: {
+          id: "executed-rule-1",
+          threadId: "thread-1",
+          emailAccountId: "account-1",
+          ruleId: "rule-1",
+        } as any,
+        logger,
+      }),
+    ).rejects.toThrow("Automatic email sending is disabled");
+    expect(client.sendEmail).not.toHaveBeenCalled();
   });
 
   describe("forward", () => {

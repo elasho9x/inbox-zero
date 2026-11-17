@@ -7,6 +7,7 @@ import { startOfDay } from "date-fns/startOfDay";
 import { ArrowRightIcon, MailXIcon, SparklesIcon } from "lucide-react";
 import { usePostHog } from "posthog-js/react";
 import { Plural, Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 import { PageHeading, TypographyP } from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { ButtonLoader } from "@/components/Loading";
@@ -224,8 +225,8 @@ export function StepBulkUnsubscribe({ onNext }: { onNext: () => void }) {
         <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-sm text-muted-foreground">
           <SparklesIcon className="size-3.5 text-amber-500" />
           {hasMore
-            ? t`Showing your top ${previewSenders.length}. We'll keep spotting more as you use Inbox Zero.`
-            : t`We'll keep spotting more as you use Inbox Zero.`}
+            ? t`Showing your top ${previewSenders.length}. We'll keep spotting more as you use {BRAND_NAME}.`
+            : t`We'll keep spotting more as you use {BRAND_NAME}.`}
         </p>
 
         <div className="mt-7 flex flex-col items-center gap-3">

@@ -7,6 +7,7 @@ import {
   extractErrorInfo as extractOutlookErrorInfo,
   isRetryableError as isOutlookRetryableError,
 } from "@/utils/outlook/retry";
+import { VinboxNylasError } from "@/utils/nylas/vinbox-client";
 
 export function isEmailProviderRateLimitError({
   error,
@@ -23,6 +24,9 @@ export function isEmailProviderRateLimitError({
   }
   if (rateLimitProvider === "microsoft") {
     return isOutlookRetryableError(extractOutlookErrorInfo(error)).isRateLimit;
+  }
+  if (rateLimitProvider === "nylas") {
+    return error instanceof VinboxNylasError && error.status === 429;
   }
 
   return false;

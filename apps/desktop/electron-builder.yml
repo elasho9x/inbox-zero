@@ -1,7 +1,7 @@
-appId: com.getinboxzero.desktop
-productName: Inbox Zero
+appId: com.vnetindia.vinbox
+productName: VINBOX
 copyright: Copyright © Inbox Zero
-artifactName: Inbox-Zero-${version}-${os}-${arch}.${ext}
+artifactName: VINBOX-${version}-${os}-${arch}.${ext}
 directories:
   output: release
   buildResources: build
@@ -11,9 +11,9 @@ files:
 asar: true
 npmRebuild: false
 protocols:
-  - name: Inbox Zero
+  - name: VINBOX
     schemes:
-      - inboxzero
+      - vinbox
 linux:
   target:
     - target: dir
@@ -48,4 +48,4 @@ nsis:
   allowToChangeInstallationDirectory: false
 publish:
   provider: generic
-  url: https://github.com/elie222/inbox-zero/releases/download/desktop-updates
+  url: https://github.com/elasho9x/inbox-zero/releases/download/desktop-updates

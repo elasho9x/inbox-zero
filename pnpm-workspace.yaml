@@ -1,6 +1,8 @@
 packages:
   - packages/*
   - apps/*
+  # The Expo app has its own toolchain and is not part of the Turborepo build.
+  - "!apps/mobile"
 
 enableGlobalVirtualStore: true
 # With the global virtual store, pnpm 12 otherwise injects a NODE_OPTIONS resolve

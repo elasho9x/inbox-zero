@@ -90,12 +90,15 @@ export const runActionFunction = async (options: {
     case ActionType.NOTIFY_MESSAGING_CHANNEL:
       return notify_messaging_channel(opts);
     case ActionType.REPLY:
+      assertAutomaticSendingEnabled();
       ensureEmailSendingEnabled();
       return reply(opts);
     case ActionType.SEND_EMAIL:
+      assertAutomaticSendingEnabled();
       ensureEmailSendingEnabled();
       return send_email(opts);
     case ActionType.FORWARD:
+      assertAutomaticSendingEnabled();
       ensureEmailSendingEnabled();
       return forward(opts);
     case ActionType.MARK_SPAM:
@@ -126,6 +129,12 @@ export const runActionFunction = async (options: {
       throw new Error(`Unknown action: ${action}`);
   }
 };
+
+function assertAutomaticSendingEnabled() {
+  if (env.AUTOMATION_SEND_ENABLED !== true) {
+    throw new Error("Automatic email sending is disabled by the administrator");
+  }
+}
 
 const archive: ActionFunction<Record<string, unknown>> = async ({
   client,

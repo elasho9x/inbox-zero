@@ -352,6 +352,12 @@ export const betterAuthConfig = betterAuth({
       create: {
         before: async (session, context) => {
           await assertScimUserActive(session.userId);
+          const user = await prisma.user.findUnique({
+            where: { id: session.userId },
+            select: { email: true },
+          });
+          if (!user) throw new APIError("UNAUTHORIZED");
+          assertAllowedAuthSignupEmail(user.email);
           return emailOtpSessionCreationHook(session, context);
         },
       },

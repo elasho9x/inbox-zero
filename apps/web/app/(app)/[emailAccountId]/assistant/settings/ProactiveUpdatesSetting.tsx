@@ -226,7 +226,7 @@ export function ProactiveUpdatesSetting({
             </DialogTitle>
             <DialogDescription>
               <Trans>
-                Configure when Inbox Zero sends scheduled summaries to{" "}
+                Configure when {BRAND_NAME} sends scheduled summaries to{" "}
                 {getMessagingProviderName(channel.provider)}.
               </Trans>
             </DialogDescription>

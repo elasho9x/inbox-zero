@@ -19,6 +19,11 @@ const EMAIL_PROVIDER_RATE_LIMIT_METADATA = {
     messageProviderLabel: "Microsoft",
     bannerProviderLabel: "Microsoft Outlook",
   },
+  nylas: {
+    apiErrorType: "Nylas Rate Limit",
+    messageProviderLabel: "Nylas",
+    bannerProviderLabel: "Nylas",
+  },
 } satisfies Record<
   EmailProviderRateLimitProvider,
   EmailProviderRateLimitMetadata
@@ -48,7 +53,8 @@ export class ProviderRateLimitModeError extends Error {
 export function toRateLimitProvider(
   provider: string | null | undefined,
 ): EmailProviderRateLimitProvider | null {
-  if (provider === "google" || provider === "microsoft") return provider;
+  if (provider === "google" || provider === "microsoft" || provider === "nylas")
+    return provider;
   return null;
 }
 

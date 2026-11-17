@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <title>VINBOX</title>
+  <!-- V icon with envelope -->
+  <path d="M10 80L30 20L50 80H10Z" fill="#1E3A8A"/>
+  <path d="M50 80L70 20L90 80H50Z" fill="#3B82F6"/>
+  <rect x="10" y="25" width="80" height="50" rx="8" fill="#1E3A8A"/>
+  <path d="M18 35L50 65L82 35" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

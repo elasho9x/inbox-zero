@@ -4,6 +4,7 @@ import { useAccount } from "@/providers/EmailAccountProvider";
 import { type ReactNode, useState } from "react";
 import type { I18n } from "@lingui/core";
 import { Plural, Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 import {
   ChevronDownIcon,
   MailPlusIcon,
@@ -349,7 +350,7 @@ export function MeetingDetail({
               <AlertDialogDescription>
                 <Trans>
                   The summary and transcript will be permanently deleted from
-                  Inbox Zero. Recap emails already sent and follow-up drafts in
+                  {BRAND_NAME}. Recap emails already sent and follow-up drafts in
                   your mailbox will remain.
                 </Trans>
               </AlertDialogDescription>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <title>VINBOX</title>
+  <!-- V icon with envelope -->
+  <path d="M102 819L307 205L512 819H102Z" fill="#1E3A8A"/>
+  <path d="M512 819L717 205L922 819H512Z" fill="#3B82F6"/>
+  <rect x="230" y="256" width="564" height="512" rx="82" fill="#1E3A8A"/>
+  <path d="M307 333L512 666L717 333" stroke="white" stroke-width="41" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ProviderRateLimitModeError } from "@/utils/email/rate-limit-mode-error";
+import { VinboxNylasError } from "@/utils/nylas/vinbox-client";
 import { isEmailProviderRateLimitError } from "./is-provider-rate-limit-error";
 
 describe("isEmailProviderRateLimitError", () => {
@@ -31,6 +32,21 @@ describe("isEmailProviderRateLimitError", () => {
         provider: "microsoft",
       }),
     ).toBe(true);
+  });
+
+  it("recognizes Nylas HTTP 429 without treating other failures as throttling", () => {
+    expect(
+      isEmailProviderRateLimitError({
+        error: new VinboxNylasError(429, null),
+        provider: "nylas",
+      }),
+    ).toBe(true);
+    expect(
+      isEmailProviderRateLimitError({
+        error: new VinboxNylasError(401, null),
+        provider: "nylas",
+      }),
+    ).toBe(false);
   });
 
   it("does not classify unrelated provider errors as rate limits", () => {

@@ -42,6 +42,14 @@ describe("isAllowedAuthSignupEmail", () => {
       }),
     ).toBe(false);
   });
+
+  it("fails closed when internal access requires an allowlist", () => {
+    expect(
+      isAllowedAuthSignupEmail("user@example.com", {
+        requireAllowlist: true,
+      }),
+    ).toBe(false);
+  });
 });
 
 describe("assertAllowedAuthSignupEmail", () => {

@@ -8,7 +8,7 @@ import { FooterLineLogo } from "@/components/new-landing/FooterLineLogo";
 import { Paragraph } from "@/components/new-landing/common/Typography";
 import { UnicornScene } from "@/components/new-landing/UnicornScene";
 import { footerNavigation } from "@/app/(landing)/home/Footer";
-import { BRAND_LOGO_URL } from "@/utils/branding";
+import { BRAND_LOGO_URL, BRAND_NAME } from "@/utils/branding";
 import { LanguageSwitcher } from "@/components/new-landing/LanguageSwitcher";
 import { LandingLink } from "@/components/new-landing/LandingLink";
 
@@ -81,7 +81,7 @@ export function Footer({ className, variant = "default" }: FooterProps) {
                 rel="noopener noreferrer"
                 className="hover:text-gray-900"
               >
-                Inbox Zero
+                {BRAND_NAME}
               </Link>
             </Trans>
           </p>
