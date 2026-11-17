@@ -1,10 +1,11 @@
 "use client";
 
-import { useLingui } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import { useDesktopUpdateStatus } from "@/hooks/useDesktopUpdateStatus";
+import { BRAND_NAME } from "@/utils/branding";
 
 const DESKTOP_UPDATE_TOAST_ID = "desktop-app-update";
 
@@ -23,7 +24,7 @@ export function DesktopUpdateToast() {
     }
     // Progress keeps arriving after dismissal; don't reopen the same download.
     if (dismissedVersion.current === status.version) return;
-    toast(t`Downloading Inbox Zero ${status.version}`, {
+    toast(t`Downloading {BRAND_NAME} ${status.version}`, {
       id: DESKTOP_UPDATE_TOAST_ID,
       description: (
         <div className="mt-2 flex items-center gap-2">

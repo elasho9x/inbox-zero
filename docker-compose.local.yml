@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${LOCAL_POSTGRES_PASSWORD:?Set by pnpm local:start}
-      POSTGRES_DB: inboxzero_local
+      POSTGRES_DB: vinbox_local
     ports:
       - "127.0.0.1:${LOCAL_POSTGRES_PORT:?Set by pnpm local:start}:5432"
     volumes:

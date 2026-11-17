@@ -48,11 +48,16 @@ const geist = Geist({
   display: "swap",
 });
 
-const title = `${BRAND_NAME} | Automate and clean your inbox`;
-const description =
-  "Your AI executive assistant to reach inbox zero fast. Automate emails, bulk unsubscribe, block cold emails, and analytics. Open-source";
+const isInternalVinbox = BRAND_NAME === "VINBOX";
+const title = isInternalVinbox
+  ? "VINBOX | Internal email workspace"
+  : `${BRAND_NAME} | Automate and clean your inbox`;
+const description = isInternalVinbox
+  ? "Internal email workspace for approved team members."
+  : "Your AI executive assistant to reach inbox zero fast. Automate emails, bulk unsubscribe, block cold emails, and analytics. Open-source";
 
-const indexingAllowed = isIndexingAllowed(env.NEXT_PUBLIC_BASE_URL);
+const indexingAllowed =
+  !isInternalVinbox && isIndexingAllowed(env.NEXT_PUBLIC_BASE_URL);
 
 const organizationId = toAbsoluteUrl("/#organization");
 const websiteId = toAbsoluteUrl("/#website");
@@ -136,7 +141,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    creator: "@inboxzero_ai",
+    ...(!isInternalVinbox && { creator: "@inboxzero_ai" }),
   },
   metadataBase: new URL(env.NEXT_PUBLIC_BASE_URL),
   // issues with robots.txt: https://github.com/vercel/next.js/issues/58615#issuecomment-1852457285
@@ -179,17 +184,21 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
-        <link
-          rel="alternate"
-          type="text/plain"
-          href="/llms.txt"
-          title={`${BRAND_NAME} agent resources`}
-        />
-        <link
-          rel="help"
-          href="https://docs.getinboxzero.com/essentials/getting-started"
-          title="Getting started"
-        />
+        {!isInternalVinbox && (
+          <link
+            rel="alternate"
+            type="text/plain"
+            href="/llms.txt"
+            title={`${BRAND_NAME} agent resources`}
+          />
+        )}
+        {!isInternalVinbox && (
+          <link
+            rel="help"
+            href="https://docs.getinboxzero.com/essentials/getting-started"
+            title="Getting started"
+          />
+        )}
         {env.NEXT_PUBLIC_EXTERNAL_API_ENABLED && (
           <link
             rel="service-desc"
@@ -218,13 +227,15 @@ export default async function RootLayout({
               'if(window.inboxZeroDesktop&&/Mac/i.test(navigator.userAgent))document.documentElement.dataset.macDesktop=""',
           }}
         />
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON.stringify on controlled object is safe
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
-        />
+        {!isInternalVinbox && (
+          <script
+            type="application/ld+json"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON.stringify on controlled object is safe
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd),
+            }}
+          />
+        )}
         <PostHogProvider>
           <Suspense>
             <PostHogPageview />
@@ -234,10 +245,10 @@ export default async function RootLayout({
             <Toaster />
           </GlobalProviders>
         </PostHogProvider>
-        {isVercel && <Analytics />}
-        <AxiomWebVitals />
+        {isVercel && !isInternalVinbox && <Analytics />}
+        {!isInternalVinbox && <AxiomWebVitals />}
         <UTM />
-        {isVercel && <SpeedInsights />}
+        {isVercel && !isInternalVinbox && <SpeedInsights />}
         <WithCookieConsent>
           {env.NEXT_PUBLIC_DUB_REFER_DOMAIN && (
             <DubAnalytics

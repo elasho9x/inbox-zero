@@ -14,21 +14,21 @@ import {
 } from "@/components/new-landing/common/Typography";
 import { env } from "@/env";
 import { cn } from "@/utils";
-import { getBrandTitle, HAS_BRAND_KIT } from "@/utils/branding";
+import { getBrandTitle, HAS_BRAND_KIT, BRAND_NAME } from "@/utils/branding";
 import { LinguiClientProvider } from "@/providers/LinguiClientProvider";
 import { getLandingMessages, initLandingLingui } from "@/utils/i18n/server";
 
 export const metadata: Metadata = {
   title: getBrandTitle("Brand Kit"),
   description:
-    "Logos, colors, and guidelines for presenting the Inbox Zero brand consistently.",
+    `Logos, colors, and guidelines for presenting the ${BRAND_NAME} brand consistently.`,
   alternates: { canonical: "/brand" },
 };
 
 const BOILERPLATE =
-  "Inbox Zero is an open source AI email assistant and Superhuman alternative. It organizes your inbox, drafts replies in your voice, and helps you reach inbox zero fast, with a full email client for Gmail and Outlook.";
+  `${BRAND_NAME} is an internal AI email assistant. It organizes your inbox, drafts replies in your voice, and helps you reach inbox zero fast, with a full email client for Gmail and Outlook.`;
 
-const SCREENSHOT_SRC = "/images/new-landing/inbox-zero-mail.webp";
+const SCREENSHOT_SRC = "/images/new-landing/vinbox-mail.webp";
 
 const logos: {
   name: string;
@@ -41,8 +41,8 @@ const logos: {
     theme: "dark",
     preview: <Logo className="h-7 w-auto text-white" />,
     downloads: [
-      { label: ".svg", href: "/brand/inbox-zero-wordmark-light.svg" },
-      { label: ".png", href: "/brand/inbox-zero-wordmark-light.png" },
+      { label: ".svg", href: "/brand/vinbox-wordmark-light.svg" },
+      { label: ".png", href: "/brand/vinbox-wordmark-light.png" },
     ],
   },
   {
@@ -50,21 +50,21 @@ const logos: {
     theme: "light",
     preview: <Logo className="h-7 w-auto text-gray-900" />,
     downloads: [
-      { label: ".svg", href: "/brand/inbox-zero-wordmark-dark.svg" },
-      { label: ".png", href: "/brand/inbox-zero-wordmark-dark.png" },
+      { label: ".svg", href: "/brand/vinbox-wordmark-dark.svg" },
+      { label: ".png", href: "/brand/vinbox-wordmark-dark.png" },
     ],
   },
   {
     name: "App icon on dark",
     theme: "dark",
     preview: <AppIcon size={88} />,
-    downloads: [{ label: ".png", href: "/brand/inbox-zero-icon.png" }],
+    downloads: [{ label: ".png", href: "/brand/vinbox-icon.png" }],
   },
   {
     name: "App icon on light",
     theme: "light",
     preview: <AppIcon size={88} />,
-    downloads: [{ label: ".png", href: "/brand/inbox-zero-icon.png" }],
+    downloads: [{ label: ".png", href: "/brand/vinbox-icon.png" }],
   },
 ];
 
@@ -91,12 +91,12 @@ export default function BrandPage() {
             <PageHeading>Brand Kit</PageHeading>
           </div>
           <Paragraph className="mt-4" size="lg">
-            Guidelines and assets for presenting the Inbox Zero brand
+            Guidelines and assets for presenting the {BRAND_NAME} brand
             consistently.
           </Paragraph>
           <div className="mt-8">
             <Button size="lg" asChild>
-              <a href="/brand/inbox-zero-brand-assets.zip" download>
+              <a href="/brand/vinbox-brand-assets.zip" download>
                 Download all assets
               </a>
             </Button>
@@ -105,12 +105,12 @@ export default function BrandPage() {
 
         <BrandSection title="Naming">
           <BrandText>
-            “Inbox Zero” is the brand name. It is always two words, each
-            starting with a capital letter.
+            “{BRAND_NAME}” is the brand name. It is always written as one word
+            in all caps.
           </BrandText>
           <BrandText>
-            It should not be written as “InboxZero”, “Inbox-Zero”, “inbox zero”,
-            or any other variation.
+            It should not be written as “Vinbox”, “VinBox”, “vinbox”, or any
+            other variation.
           </BrandText>
         </BrandSection>
 
@@ -190,17 +190,17 @@ export default function BrandPage() {
 
         <BrandSection title="Screenshots">
           <BrandText>
-            Use this product screenshot when presenting Inbox Zero. It uses demo
+            Use this product screenshot when presenting {BRAND_NAME}. It uses demo
             data, so no real inbox is shown.
           </BrandText>
           <a
             href={SCREENSHOT_SRC}
-            download="inbox-zero-screenshot.webp"
+            download="vinbox-screenshot.webp"
             className="mt-6 block overflow-hidden rounded-2xl border border-gray-200"
           >
             <Image
               src={SCREENSHOT_SRC}
-              alt="Inbox Zero Mail on desktop and mobile"
+              alt={`${BRAND_NAME} Mail on desktop and mobile`}
               width={2540}
               height={1520}
               className="h-auto w-full"
@@ -226,7 +226,7 @@ export default function BrandPage() {
               contact us
             </a>{" "}
             if you need additional assets or have questions about using the
-            Inbox Zero brand.
+            {BRAND_NAME} brand.
           </BrandText>
         </BrandSection>
       </div>
@@ -263,8 +263,8 @@ function BrandText({ children }: { children: React.ReactNode }) {
 function AppIcon({ size }: { size: number }) {
   return (
     <Image
-      src="/brand/inbox-zero-icon.png"
-      alt="Inbox Zero app icon"
+      src="/brand/vinbox-icon.png"
+      alt={`${BRAND_NAME} app icon`}
       width={size}
       height={size}
     />

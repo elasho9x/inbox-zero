@@ -4,6 +4,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { AppAlertBanner } from "@/app/(app)/AppAlertBanner";
 import { useEmailAccountFull } from "@/hooks/useEmailAccountFull";
 import { getProviderRateLimitBannerLabel } from "@/utils/email/rate-limit-mode-error";
+import { BRAND_NAME } from "@/utils/branding";
 
 export function ProviderRateLimitBanner() {
   const { t } = useLingui();
@@ -25,7 +26,7 @@ export function ProviderRateLimitBanner() {
       description={
         <p>
           <Trans>
-            Inbox Zero actions are temporarily paused until around{" "}
+            {BRAND_NAME} actions are temporarily paused until around{" "}
             <strong>{retryAtLabel}</strong>. This limit is enforced by{" "}
             {providerLabel}, and other apps connected to this mailbox can
             contribute to the same shared limit.

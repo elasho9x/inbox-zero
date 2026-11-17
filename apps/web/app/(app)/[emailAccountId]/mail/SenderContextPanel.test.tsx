@@ -27,7 +27,7 @@ describe("SenderContextPanel", () => {
     renderPanel(cache, () => Promise.reject(networkError()));
 
     expect(
-      await screen.findByText(/Couldn't connect to Inbox Zero/),
+      await screen.findByText(/Couldn't connect to VINBOX/),
     ).toBeTruthy();
   });
 
@@ -106,6 +106,6 @@ function renderPanel(cache: Map<unknown, unknown>, fetcher: () => unknown) {
 
 function networkError() {
   const message =
-    "Couldn't connect to Inbox Zero. Check your internet connection and try again.";
+    "Couldn't connect to VINBOX. Check your internet connection and try again.";
   return Object.assign(new Error(message), { info: { error: message } });
 }

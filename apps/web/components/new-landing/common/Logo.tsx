@@ -16,7 +16,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { cn } from "@/utils";
-import { HAS_BRAND_KIT } from "@/utils/branding";
+import { HAS_BRAND_KIT, BRAND_NAME } from "@/utils/branding";
 
 interface LogoProps {
   variant?: "default" | "mobile";
@@ -75,7 +75,7 @@ export function Logo({ variant = "default" }: LogoProps) {
 async function copyLogoSvg(): Promise<boolean> {
   try {
     // Passing a promise keeps the user gesture alive in Safari while the SVG loads.
-    const svg = fetch("/brand/inbox-zero-wordmark-dark.svg")
+    const svg = fetch(`/brand/${BRAND_NAME.toLowerCase()}-wordmark-dark.svg`)
       .then((res) => {
         if (!res.ok) throw new Error(`Logo request failed: ${res.status}`);
         return res.text();

@@ -303,7 +303,7 @@ export interface MailStore {
   }): Promise<LocalRevision>;
   ensureAccount(input: {
     accountId: string;
-    provider: "google" | "microsoft";
+    provider: "google" | "microsoft" | "nylas";
     generation: string;
   }): Promise<LocalRevision>;
   evictReplaceableContent(): Promise<{ evictedBodies: number }>;

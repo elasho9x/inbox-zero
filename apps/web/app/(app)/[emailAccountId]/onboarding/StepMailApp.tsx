@@ -1,6 +1,7 @@
 "use client";
 
-import { useLingui } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 import { AnnouncementVideo } from "@/components/feature-announcements/AnnouncementVideo";
 import { EMAIL_CLIENT_LAUNCH_VIDEO_ID } from "@/utils/announcements";
 import { OnboardingFeatureStep } from "./OnboardingFeatureStep";
@@ -15,7 +16,7 @@ export function StepMailApp({ onNext }: { onNext: () => void }) {
           <AnnouncementVideo
             playbackId={EMAIL_CLIENT_LAUNCH_VIDEO_ID}
             thumbnailTime={1.5}
-            title={t`Meet the Inbox Zero email app`}
+            title={t`Meet the {BRAND_NAME} email app`}
           />
         </div>
       }

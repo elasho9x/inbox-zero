@@ -4,7 +4,7 @@ import type { QuerySnapshot } from "@inboxzero/mail-core/queries";
 
 export type BrowserEngineStart = {
   accountId: string;
-  provider: "google" | "microsoft";
+  provider: "google" | "microsoft" | "nylas";
   generation?: string;
   persist?: boolean;
   maxPendingOperations?: number;

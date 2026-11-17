@@ -18,6 +18,7 @@ import { createScopedLogger } from "@/utils/logger";
 import { trackStripeCheckoutCompleted } from "@/utils/posthog";
 import prisma from "@/utils/prisma";
 import { buildRedirectUrl } from "@/utils/redirect";
+import { BRAND_NAME } from "@/utils/branding";
 
 const logger = createScopedLogger("checkout-complete");
 
@@ -107,25 +108,25 @@ function getCopy(status: string | undefined) {
       return {
         title: "Checkout canceled",
         description:
-          "No charge was made. Switch back to the Inbox Zero app to pick a plan.",
+          `No charge was made. Switch back to the ${BRAND_NAME} app to pick a plan.`,
       };
     case "trial":
       return {
         title: "You're all set",
         description:
-          "Your trial has started. Switch back to the Inbox Zero app, which will open your inbox.",
+          `Your trial has started. Switch back to the ${BRAND_NAME} app, which will open your inbox.`,
       };
     case "subscribed":
       return {
         title: "You're all set",
         description:
-          "Your subscription is active. Switch back to the Inbox Zero app, which will open your inbox.",
+          `Your subscription is active. Switch back to the ${BRAND_NAME} app, which will open your inbox.`,
       };
     default:
       return {
-        title: "Switch back to Inbox Zero",
+        title: `Switch back to ${BRAND_NAME}`,
         description:
-          "We're still confirming your checkout. Switch back to the Inbox Zero app, which will open your inbox once your plan is active.",
+          `We're still confirming your checkout. Switch back to the ${BRAND_NAME} app, which will open your inbox once your plan is active.`,
       };
   }
 }

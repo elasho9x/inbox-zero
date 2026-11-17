@@ -6,7 +6,8 @@ export const BRAND_ICON_URL =
   env.NEXT_PUBLIC_BRAND_ICON_URL?.trim() || "/icon.png";
 export const SUPPORT_EMAIL = env.NEXT_PUBLIC_SUPPORT_EMAIL;
 
-// The brand kit only ships Inbox Zero assets, so white-labeled deployments hide it.
+// The brand kit only ships Inbox Zero assets. VINBOX has its own brand assets,
+// so we check if the brand is Inbox Zero (with no custom logo) to show the kit.
 export const HAS_BRAND_KIT = BRAND_NAME === "Inbox Zero" && !BRAND_LOGO_URL;
 
 export function getBrandTitle(pageTitle: string) {

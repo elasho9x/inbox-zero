@@ -45,7 +45,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Hero
         badge={
           <SectionLink sectionId={EMAIL_CLIENT_SECTION_ID}>
-            <Trans>New: Inbox Zero Mail app →</Trans>
+            <Trans>New: {BRAND_NAME} Mail app →</Trans>
           </SectionLink>
         }
         title={<HeroTitle />}

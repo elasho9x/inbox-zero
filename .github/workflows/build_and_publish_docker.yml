@@ -1,5 +1,5 @@
-name: "Build Inbox Zero Docker Image"
-run-name: "Build Inbox Zero Docker Image"
+name: "Build VINBOX Docker Image"
+run-name: "Build VINBOX Docker Image"
 
 on:
   push:
@@ -20,12 +20,12 @@ permissions:
 
 env:
   DOCKER_IMAGE_REGISTRY: "ghcr.io"
-  DOCKER_USERNAME: "elie222"
+  DOCKER_USERNAME: "elasho9x"
   DEPOT_PROJECT_ID: "2s1sh2pjrf"
 
 jobs:
   build-docker:
-    if: github.repository == 'elie222/inbox-zero'
+    if: github.repository == 'elasho9x/inbox-zero'
     name: "Build Docker Image"
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -41,8 +41,8 @@ jobs:
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
         with:
           images: |
-            ghcr.io/${{ env.DOCKER_USERNAME }}/inbox-zero
-            ${{ env.DOCKER_USERNAME }}/inbox-zero
+            ghcr.io/${{ env.DOCKER_USERNAME }}/vinbox
+            ${{ env.DOCKER_USERNAME }}/vinbox
           tags: |
             # Always tag with short SHA
             type=sha,prefix=
@@ -84,6 +84,6 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ env.DOCKER_USERNAME }}/inbox-zero
-          short-description: "Inbox Zero - AI email assistant for Gmail and Outlook to reach inbox zero fast"
+          repository: ${{ env.DOCKER_USERNAME }}/vinbox
+          short-description: "VINBOX - Private AI-powered email workspace for teams"
           readme-filepath: ./README.md

@@ -19,6 +19,7 @@ import {
 import { useAction } from "next-safe-action/hooks";
 import { msg } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
+import { BRAND_NAME } from "@/utils/branding";
 import { useCallback, useState } from "react";
 import { PageHeading, TypographyP } from "@/components/Typography";
 import { IconCircle } from "@/app/(app)/[emailAccountId]/onboarding/IconCircle";
@@ -154,7 +155,7 @@ export function StepHowYouHeard({ onNext }: { onNext: () => void }) {
 
       <div className="text-center mt-4">
         <PageHeading>
-          <Trans>How did you hear about Inbox Zero?</Trans>
+          <Trans>How did you hear about {BRAND_NAME}?</Trans>
         </PageHeading>
         <TypographyP className="mt-2 max-w-lg mx-auto">
           <Trans>We'd love to know how you found us.</Trans>
